@@ -17,6 +17,7 @@ jobs:
         run: xcodebuild -version
 
       - name: Build simulator .app
+        working-directory: ios # Thêm dòng này để chỉ định chạy lệnh trong thư mục ios
         run: |
           xcodebuild \
             -project MuleHazardMap.xcodeproj \
@@ -29,7 +30,8 @@ jobs:
 
       - name: Package for Appetize
         run: |
-          cd build/Build/Products/Debug-iphonesimulator
+          # Sửa đường dẫn cd vào đúng thư mục build nằm bên trong thư mục ios
+          cd ios/build/Build/Products/Debug-iphonesimulator
           ditto -c -k --sequesterRsrc --keepParent MuleHazardMap.app ../../../../MuleHazardMap-appetize.zip
 
       - name: Upload artifact
